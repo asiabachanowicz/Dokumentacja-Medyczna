@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dokumenty cyfrowe</title>
+    {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+</head>
+<body>
+ <div>
+     <center>
+    Dokumenty cyfrowe - neurologia </br>
+    Wybierz rodzaj konta:
+  <p class="submit"><input type="submit" id="patient" name="register" value="Pacjent" onClick="moveToPatientPage()"></p>
+  <p class="submit"><input type="submit" id="doctor" name="register" value="Lekarz" onClick="moveToDoctorPage()"></p></center>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+  document.getElementById("patient").onclick = function () {
+    location.href = "http://localhost:8000/login";
+  }
+  document.getElementById("doctor").onclick = function () {
+    location.href = "http://localhost:8000/";
+  }
+</script>

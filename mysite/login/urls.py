@@ -1,8 +1,1 @@
-from django.urls import path
-
-
-from . import views
-
-urlpatterns = {
-    path('', views.login)
-}
+# All urls are defined in mysite/urls.py
