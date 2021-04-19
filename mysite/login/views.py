@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from login.models import Pacjent
-from login.models import Lekarz
+from .models import Pacjent
+from .models import Lekarz
+from django.views.generic import ListView
 
 from django.http import HttpResponse
 
@@ -48,9 +49,9 @@ def loginDoctor(request):
     if request.method == 'POST':
         Lekarz.objects
         login = Lekarz(login="test")
-        doctor = Lekarz.objects.all().filter(login=request.POST["login"], haslo=request.POST['password'])
-        print(doctor)
-        if doctor.exists():
+        doctors = Lekarz.objects.all().filter(login=request.POST["login"], haslo=request.POST['password'])
+        print(doctors)
+        if doctors.exists():
             print("zalogowano lekarza")
             return render(request, 'doctor.html')
         else:
@@ -72,4 +73,16 @@ def registerDoctor(request):
     return render(request,'registerDoctor.html')
 
 def doctor(request):
-    return render(request, 'doctor.html')
+
+    #wyswiettlenie loginow w konsoli
+    for e in Pacjent.objects.all():
+        print(e.login)
+
+    #wyswietlenie obiektow w html
+    pac = Pacjent.objects.all()
+
+    return render(request,"doctor.html", {'pac':pac})
+
+
+
+
