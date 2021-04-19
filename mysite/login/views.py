@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .models import Pacjent
 from .models import Lekarz
+
+from django.core import serializers
 from django.views.generic import ListView
+import json
 
 from django.http import HttpResponse
 
@@ -11,7 +15,6 @@ def index(request):
 def loginPatient(request):
     if request.method == 'POST':
         Pacjent.objects
-        login = Pacjent(login="test")
         patient = Pacjent.objects.all().filter(login=request.POST["login"], haslo=request.POST['password'])
         print(patient)
         if patient.exists():
@@ -82,18 +85,14 @@ def doctor(request):
         if patients.exists():
             print(patient_data)
             print(patients)
-            return HttpResponse(patients)
+            serialized_qs = serializers.serialize('json', patients)
+            return JsonResponse(serialized_qs, safe=False)
         patients = Pacjent.objects.all().filter(nazwisko__startswith=patient_data)
         if patients.exists():
             print(patient_data)
             print(patients)
             return HttpResponse(patients)
 
-    #wyswiettlenie loginow w konsoli
-    #for e in Pacjent.objects.all():
-        #print(e.login)
-
-    #wyswietlenie obiektow w html
     pac = Pacjent.objects.all()
 
     return render(request,"doctor.html", {'pac':pac})
