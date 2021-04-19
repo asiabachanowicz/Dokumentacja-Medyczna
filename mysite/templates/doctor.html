@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Dokumenty - lekarz</title>
     {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
 </head>
-<body onload="myFunc()">
+<body>
+    <input type="text" id="searchForPatient" onkeyup="searchForPatient()" placeholder="Wpisz nazwisko" title="Wyszukiwarka pacjentów">
+    </br>
 {% for pacs in pac %}
 
 {{pacs.imie}}, {{pacs.nazwisko}}<br>
@@ -15,8 +18,22 @@
 </body>
 </html>
 <script type="text/javascript">
-function myFunc() {
-    location.href = "http://localhost:8000/doctor/";
-  }
+function searchForPatient() {
+    input = document.getElementById("searchForPatient");
+    console.log("wyszukiwarka pacjenta " + input.value);
+    $.ajax({
+        method: 'POST',
+        url: '/doctor/views.doctor',
+        data: {'text': input.value,
+        csrfmiddlewaretoken: '{{ csrf_token }}'},
+        success: function (data) {
+             //this gets called when server returns an OK response
+             console.log("it worked!");
+        },
+        error: function (data) {
+             console.log("it didnt work");
+        }
+    });
+}
 </script>
 

@@ -15,6 +15,7 @@ Including another URLconf
 """
 
 from django.conf.urls import url
+from django.urls import path
 from login.views import loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor
 
 urlpatterns = [
@@ -24,5 +25,6 @@ urlpatterns = [
     url('registerDoctor/', registerDoctor, name="registerDoctor"),
     url('patient/', patient, name="patient"),
     url('doctor/', doctor, name="doctor"),
-    url('', index, name="index")
+    url('', index, name="index"),
+    path('doctor/', doctor, name='doctor'),
 ]

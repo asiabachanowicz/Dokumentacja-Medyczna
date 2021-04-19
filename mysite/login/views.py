@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Pacjent
 from .models import Lekarz
 from django.views.generic import ListView
@@ -39,6 +39,7 @@ def registerPatient(request):
         patient = Pacjent.objects.create(haslo=password, login=mail, imie=name, nazwisko=surname, adres=address, plec=plec, data_ur=date_birth)
         print(patient)
         patient.save()
+        return render(request, 'loginPatient.html')
     return render(request,'registerPatient.html')
 
 def patient(request):
@@ -53,7 +54,7 @@ def loginDoctor(request):
         print(doctors)
         if doctors.exists():
             print("zalogowano lekarza")
-            return render(request, 'doctor.html')
+            return redirect('doctor')
         else:
             print("nie udalo sie zalogowac lekarza")
     return render(request,'loginDoctor.html')
@@ -70,9 +71,14 @@ def registerDoctor(request):
         doctor = Lekarz.objects.create(haslo=password, login=mail, imie=name, nazwisko=surname, nr_telefonu=tel_number)
         print(doctor)
         doctor.save()
+        return render(request, 'loginDoctor.html')
     return render(request,'registerDoctor.html')
 
 def doctor(request):
+    print("doctor")
+    if request.method == 'POST' or request.is_ajax():
+        print("tak")
+        print(request.POST['text'])
 
     #wyswiettlenie loginow w konsoli
     for e in Pacjent.objects.all():
