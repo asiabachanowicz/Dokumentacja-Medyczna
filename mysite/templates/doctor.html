@@ -10,11 +10,7 @@
 <body>
     <input type="text" id="searchForPatient" onkeyup="searchForPatient()" placeholder="Wpisz nazwisko" title="Wyszukiwarka pacjentów">
     </br>
-{% for pacs in pac %}
-
-{{pacs.imie}}, {{pacs.nazwisko}}<br>
-
-{% endfor %}
+    <div id="div1"></div>
 </body>
 </html>
 <script type="text/javascript">
@@ -27,9 +23,23 @@ function searchForPatient() {
         data: {'text': input.value,
         csrfmiddlewaretoken: '{{ csrf_token }}'},
         success: function (data) {
+            $("#div1").html("");
              //this gets called when server returns an OK response
              console.log("it worked!");
              console.log(data);
+             var obj = JSON.parse(data);
+             var tbl=$("<table/>").attr("id","mytable");
+            $("#div1").append(tbl);
+            for(var i=0;i<obj.length;i++)
+            {
+                var tr="<tr>";
+                var td1="<td>"+obj[i]["fields"]["imie"]+"</td>";
+                var td2="<td>"+obj[i]["fields"]["nazwisko"]+"</td>";
+                var td3="<td>"+obj[i]["fields"]["adres"]+"</td></tr>";
+
+               $("#mytable").append(tr+td1+td2+td3);
+
+            }
         },
         error: function (data) {
              console.log("it didnt work");
