@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejestracja</title>
+    {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+</head>
+<body>
+<div class="register">
+    <center>
+  <h1>Rejestracja nowego pacjenta</h1>
+  <form method="post" action=""> {% csrf_token %}
+    <p><input type="text" name="login" value="" placeholder="Adres e-mail"></p>
+    <p><input type="password" name="password" value="" placeholder="Hasło"></p>
+      <p><input type="text" name="name" value="" placeholder="Imię"></p>
+      <p><input type="text" name="surname" value="" placeholder="Nazwisko"></p>
+      <p><input type="text" name="address" value="" placeholder="Adres"></p>
+      <p><input type="radio" name="sex" id="women" value="women">Kobieta</p>
+      <p><input type="radio" name="sex" id="men" value="men">Mężczyzna</p>
+      <p><input type="date" name="birth_date" value="" placeholder="Data urodzenia"></p>
+    <p class="submit"><input type="submit" name="commit" value="Rejestracja"></p>
+  </form>
+    </center>
+</div>
+</body>
+</html>

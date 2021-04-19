@@ -15,11 +15,14 @@ Including another URLconf
 """
 
 from django.conf.urls import url
-from login.views import login, register, patient, index
+from login.views import loginPatient, loginDoctor, registerPatient, registerDoctor, patient, doctor, index
 
 urlpatterns = [
-    url('login/', login, name="login"),
-    url('register/', register, name="register"),
+    url('loginPatient/', loginPatient, name="loginPatient"),
+    url('loginDoctor/', loginDoctor, name="loginDoctor"),
+    url('registerPatient/', registerPatient, name="registerPatient"),
+    url('registerDoctor/', registerDoctor, name="registerDoctor"),
     url('patient/', patient, name="patient"),
+    url('doctor/', doctor, name="doctor"),
     url('', index, name="index")
 ]
