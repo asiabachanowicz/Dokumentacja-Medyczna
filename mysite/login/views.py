@@ -75,14 +75,23 @@ def registerDoctor(request):
     return render(request,'registerDoctor.html')
 
 def doctor(request):
-    print("doctor")
     if request.method == 'POST' or request.is_ajax():
-        print("tak")
-        print(request.POST['text'])
+        Pacjent.objects
+        patient_data = request.POST['text']
+        patients = Pacjent.objects.all().filter(imie__startswith=patient_data)
+        if patients.exists():
+            print(patient_data)
+            print(patients)
+            return HttpResponse(patients)
+        patients = Pacjent.objects.all().filter(nazwisko__startswith=patient_data)
+        if patients.exists():
+            print(patient_data)
+            print(patients)
+            return HttpResponse(patients)
 
     #wyswiettlenie loginow w konsoli
-    for e in Pacjent.objects.all():
-        print(e.login)
+    #for e in Pacjent.objects.all():
+        #print(e.login)
 
     #wyswietlenie obiektow w html
     pac = Pacjent.objects.all()
