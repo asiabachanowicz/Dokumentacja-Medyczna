@@ -7,7 +7,7 @@
     {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
 </head>
-<body>
+<body onload="searchForPatient()">
     <input type="text" id="searchForPatient" onkeyup="searchForPatient()" placeholder="Wpisz nazwisko" title="Wyszukiwarka pacjentów">
     </br>
     <div id="div1"></div>
@@ -32,12 +32,14 @@ function searchForPatient() {
             $("#div1").append(tbl);
             for(var i=0;i<obj.length;i++)
             {
+                var href = "http://localhost:8000/patient-site/?id=" + obj[i]["fields"]["imie"] + "-" + obj[i]["fields"]["nazwisko"];
                 var tr="<tr>";
                 var td1="<td>"+obj[i]["fields"]["imie"]+"</td>";
                 var td2="<td>"+obj[i]["fields"]["nazwisko"]+"</td>";
-                var td3="<td>"+obj[i]["fields"]["adres"]+"</td></tr>";
+                var td3="<td>"+obj[i]["fields"]["adres"]+"</td>";
+                var td4="<td><a href="+href+">"+href+"</a></td></tr>";
 
-               $("#mytable").append(tr+td1+td2+td3);
+               $("#mytable").append(tr+td1+td2+td3+td4);
 
             }
         },

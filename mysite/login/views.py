@@ -12,6 +12,10 @@ from django.http import HttpResponse
 def index(request):
     return render(request,"index.html")
 
+def patientSite(request):
+    print(request.GET['id'])
+    return render(request, "index.html")
+
 def loginPatient(request):
     if request.method == 'POST':
         Pacjent.objects
