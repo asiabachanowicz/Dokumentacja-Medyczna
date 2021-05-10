@@ -5,8 +5,12 @@
     <title>Dokumenty - pacjent</title>
     {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'search.css' %}">
 </head>
 <body>
-Strona startowa pacjenta
+    <center>
+    <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Planuj leczenie" onClick="addDoc()"></p></div>
+    <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Generuj raport" onClick="addDoc()"></p></div>
+    </center>
 </body>
 </html>
