@@ -86,11 +86,23 @@ def doctor(request):
     if request.method == 'POST' or request.is_ajax():
         Pacjent.objects
         patient_data = request.POST['text']
-        patients = Pacjent.objects.all().filter(imie__startswith=patient_data)
-        if patients.exists():
+        patient1 = Pacjent.objects.all().filter(imie__startswith=patient_data)
+        patient2 = Pacjent.objects.all().filter(pesel__startswith=patient_data)
+        patient3 = Pacjent.objects.all().filter(nazwisko__startswith=patient_data)
+        if patient1.exists():
             print(patient_data)
-            print(patients)
-            serialized_qs = serializers.serialize('json', patients)
+            print(patient1)
+            serialized_qs = serializers.serialize('json', patient1)
+            return JsonResponse(serialized_qs, safe=False)
+        elif patient2.exists():
+            print(patient_data)
+            print(patient2)
+            serialized_qs = serializers.serialize('json', patient2)
+            return JsonResponse(serialized_qs, safe=False)
+        elif patient3.exists():
+            print(patient_data)
+            print(patient3)
+            serialized_qs = serializers.serialize('json', patient3)
             return JsonResponse(serialized_qs, safe=False)
         patients = Pacjent.objects.all().filter(nazwisko__startswith=patient_data)
         if patients.exists():
