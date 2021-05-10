@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.urls import path
-from login.views import loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor
+from login.views import loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite
 
 urlpatterns = [
     url('loginPatient/', loginPatient, name="loginPatient"),
@@ -26,5 +26,6 @@ urlpatterns = [
     url('patient/', patient, name="patient"),
     url('doctor/', doctor, name="doctor"),
     url('', index, name="index"),
+    url('patient-site/$', patientSite, name='patientSite'),
     path('doctor/', doctor, name='doctor'),
 ]
