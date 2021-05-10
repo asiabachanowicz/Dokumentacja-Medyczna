@@ -13,8 +13,13 @@ def index(request):
     return render(request,"index.html")
 
 def patientSite(request):
-    print(request.GET['id'])
-    return render(request, "index.html")
+    patient_name = (request.GET["id"]).split("-")[0]
+    patient_surname = (request.GET["id"]).split("-")[1]
+    print(patient_name)
+    print(patient_surname)
+    patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
+    print(patient1)
+    return render(request, "patientSite.html", {"pac": patient1})
 
 def loginPatient(request):
     if request.method == 'POST':

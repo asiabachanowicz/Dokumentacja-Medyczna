@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'search.css' %}">
+</head>
+<body>
+<div>
+    <center>
+<h1 style="display: inline-block;">
+{% for p in pac %}
+    Imię i nazwisko: {{ p.imie }} {{ p.nazwisko }} </h1>
+<h1>
+    PESEL: {{ p.pesel }}
+{% endfor %}
+</h1>
+    <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Dodaj dokument" onClick="addDoc()"></p></center></div>
+</body>
+</html>
+<script>
+    function addDoc() {
+    }
+</script>

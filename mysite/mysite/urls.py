@@ -25,7 +25,7 @@ urlpatterns = [
     url('registerDoctor/', registerDoctor, name="registerDoctor"),
     url('patient/', patient, name="patient"),
     url('doctor/', doctor, name="doctor"),
+    url('patient-site/', patientSite, name='patientSite'),
     url('', index, name="index"),
-    url('patient-site/$', patientSite, name='patientSite'),
     path('doctor/', doctor, name='doctor'),
 ]
