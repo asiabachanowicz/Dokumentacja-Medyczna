@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <title>Dokumenty - lekarz</title>
     {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'search.css' %}">
 </head>
+<head>
 <body onload="searchForPatient()">
-    <input type="text" id="searchForPatient" onkeyup="searchForPatient()" placeholder="Wpisz imie/nazwisko/pesel" title="Wyszukiwarka pacjentów">
+    <input class="search" type="text" id="searchForPatient" onkeyup="searchForPatient()" placeholder="Wpisz imię, nazwisko bądź pesel" title="Wyszukiwarka pacjentów">
     </br>
-    <div id="div1"></div>
+    <div class="myDiv" id="div1"></div>
 </body>
 </html>
 <script type="text/javascript">
@@ -30,6 +31,13 @@ function searchForPatient() {
              var obj = JSON.parse(data);
              var tbl=$("<table/>").attr("id","mytable");
             $("#div1").append(tbl);
+            var tr="<tr>";
+            var td1="<td>"+"Imię"+"</td>";
+            var td2="<td>"+"Nazwisko"+"</td>";
+            var td3="<td>"+"Adres"+"</td>";
+            var td4="<td>"+"Numer PESEL"+"</td>";
+            var td5="<td>"+"Link";
+            $("#mytable").append(tr+td1+td2+td3+td4+td5);
             for(var i=0;i<obj.length;i++)
             {
                 var href = "http://localhost:8000/patient-site/?id=" + obj[i]["fields"]["imie"] + "-" + obj[i]["fields"]["nazwisko"];
@@ -43,6 +51,7 @@ function searchForPatient() {
                $("#mytable").append(tr+td1+td2+td3+td4+td5);
 
             }
+
         },
         error: function (data) {
              console.log("it didnt work");
