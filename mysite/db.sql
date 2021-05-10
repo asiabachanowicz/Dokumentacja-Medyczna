@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS "pacjent" (
 	"imie"	TEXT,
 	"nazwisko"	TEXT,
 	"adres"	TEXT,
+	"pesel" TEXT,
 	"rodzaj_choroby"	TEXT,
 	"nazwa_badnia"	TEXT,
 	"plec"	TEXT,

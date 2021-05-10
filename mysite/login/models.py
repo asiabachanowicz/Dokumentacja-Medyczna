@@ -9,6 +9,7 @@ class Pacjent(models.Model):
     imie = models.CharField(max_length=30)
     nazwisko = models.CharField(max_length=30)
     adres = models.TextField(max_length=30)
+    pesel = models.TextField(max_length=30,  default='pesel')
     rodzaj_choroby = models.CharField(max_length=30)
     nazwa_badania = models.CharField(max_length=30)
     plec = models.CharField(max_length=30)

@@ -35,6 +35,7 @@ def registerPatient(request):
         password = request.POST['password']
         surname = request.POST['surname']
         address = request.POST['address']
+        peselP = request.POST['peselP']
         date_birth = request.POST['birth_date']
         print(name, password)
         sex = request.POST['sex']
@@ -43,7 +44,7 @@ def registerPatient(request):
         if sex == 'men':
             plec = "mezczyzna"
 
-        patient = Pacjent.objects.create(haslo=password, login=mail, imie=name, nazwisko=surname, adres=address, plec=plec, data_ur=date_birth)
+        patient = Pacjent.objects.create(haslo=password, login=mail, imie=name, nazwisko=surname, adres=address, pesel=peselP, plec=plec, data_ur=date_birth)
         print(patient)
         patient.save()
         return render(request, 'loginPatient.html')
@@ -100,7 +101,3 @@ def doctor(request):
     pac = Pacjent.objects.all()
 
     return render(request,"doctor.html", {'pac':pac})
-
-
-
-
