@@ -28,7 +28,7 @@ def loginPatient(request):
         print(patient)
         if patient.exists():
             print("zalogowano pacjenta")
-            return render(request, 'patient.html')
+            return render(request, 'patient.html', {"pac": patient})
         else:
             print("nie udalo sie zalogowac pacjenta")
     return render(request,'loginPatient.html')

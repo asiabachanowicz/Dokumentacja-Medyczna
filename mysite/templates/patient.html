@@ -9,6 +9,13 @@
 </head>
 <body>
     <center>
+    <p style="display: inline-block;">
+    {% for p in pac %}
+        Imię i nazwisko: {{ p.imie }} {{ p.nazwisko }} </p>
+    <p>
+        PESEL: {{ p.pesel }}
+    {% endfor %}
+    </p>
     <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Planuj leczenie" onClick="addDoc()"></p></div>
     <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Generuj raport" onClick="addDoc()"></p></div>
     </center>
