@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="schema_mri.xsl" type="text/xsl"?>
+<Document xmlns="urn:hl7-org:v3" xmlns:extPL="http://www.csioz.gov.pl/xsd/extPL/r2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="extPL:Document">
+	<!-- Opis badania diagnostycznego -->
+	<typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
+	<templateId root="2.16.840.1.113883.3.4424.13.10.1.16" extension="1.3.1"/>
+	<title>MRI rdzenia kręgowego</title>
+	<effectiveTime value="20210306"/>
+	<languageCode code="pl-PL"/>
+	<setId extension="432231" root="2.16.840.1.113883.3.4424.2.7.0.7.2"/>
+	<versionNumber value="1"/>
+	<recordTarget>
+		<templateId root="2.16.840.1.113883.3.4424.13.10.2.3"/>
+		<patientRole>
+			<id extension="12345" root="2.16.840.1.113883.3.4424.2.7.0.17.1" displayable="false"/>
+			<id extension="87032740259" root="2.16.840.1.113883.3.4424.1.1.616" displayable="true"/>
+			<addr>
+				<city>Gdansk</city>
+				<postalCode>80-288</postalCode>
+				<streetName>Biała</streetName>
+				<houseNumber>12</houseNumber>
+				<unitID>2</unitID>
+			</addr>
+			<patient>
+				<name>
+					<given>Adrian</given>
+					<given></given>
+					<family>Nowacki</family>
+				</name>
+				<administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1"/>
+				<birthTime value="19870327"/>
+			</patient>
+		</patientRole>
+	</recordTarget>
+	<author>
+		<templateId root="2.16.840.1.113883.3.4424.13.10.2.4"/>
+        <functionCode code="LEK" codeSystem="2.16.840.1.113883.3.4424.11.3.18" displayName="Lekarz"/>
+		<time value="20130412"/>
+		<assignedAuthor xsi:type="extPL:AssignedAuthor">
+            <id extension="7724513" root="2.16.840.1.113883.3.4424.1.6.2" displayable="false"/>
+            <assignedPerson>
+            	<templateId root="2.16.840.1.113883.3.4424.13.10.2.1"/>
+                <name>
+                    <prefix>lek.</prefix>
+                    <given>Pawel</given>
+                    <family>Nowakowski</family>
+                </name>
+            </assignedPerson>
+            <representedOrganization>
+                <templateId root="2.16.840.1.113883.3.4424.13.10.2.17"/>
+                <id extension="1007-01" root="2.16.840.1.113883.3.4424.2.3.2" displayable="true"/>
+                <name>Poradnia POZ</name>
+                <telecom use="PUB" value="tel:22-1111123"/>
+                <addr>
+                    <postalCode>80-255</postalCode>
+                    <city>Gdansk</city>
+                    <streetName>Adamowicza</streetName>
+                    <houseNumber>20</houseNumber>
+                </addr>
+                <asOrganizationPartOf>
+                    <wholeOrganization>
+                        <id extension="12345678901234" root="2.16.840.1.113883.3.4424.2.2.2" displayable="true"/>
+                        <name>NZOZ „POL-MED”</name>
+                        <asOrganizationPartOf>
+                            <wholeOrganization>
+                                <id extension="1007" root="2.16.840.1.113883.3.4424.2.3.1" displayable="true"/>
+                                <id extension="123456789" root="2.16.840.1.113883.3.4424.2.2.1" displayable="true"/>
+                                <name>POL-MED Sp. z o.o.</name>
+                            </wholeOrganization>
+                        </asOrganizationPartOf>
+                    </wholeOrganization>
+                </asOrganizationPartOf>
+            </representedOrganization>
+        </assignedAuthor>
+	</author>
+	<legalAuthenticator>
+		<templateId root="2.16.840.1.113883.3.4424.13.10.2.6"/>
+		<time value="20130412"/>
+		<assignedEntity>
+			<id extension="7724513" root="2.16.840.1.113883.3.4424.1.6.2" displayable="true"/>
+        </assignedEntity>
+	</legalAuthenticator>
+	<documentationOf typeCode="DOC">
+		<templateId root="2.16.840.1.113883.3.4424.13.10.2.51"/>
+		<serviceEvent classCode="ACT" moodCode="EVN">
+			<id extension="9990001" root="2.16.840.1.113883.3.4424.2.7.0.99" displayable="true"/>
+			<code code="87.440" codeSystem="2.16.840.1.113883.3.4424.11.2.6" codeSystemName="ICD-9-PL" displayName="MRI rdzenia kręgowego"/>
+			<effectiveTime value="202103051012"/>
+		</serviceEvent>	
+	</documentationOf>
+	<imageObject url="https://dworska.pl/images/rezonans_mri/rezonans_kregoslupa/rezonans-kregoslupa-szyjnego-krakow.png" name="South Boulder-aerial photo" ullat="39.98890" ullon="-105.22782" lrlat="39.98755" lrlon="-105.22548"/>
+</Document>
