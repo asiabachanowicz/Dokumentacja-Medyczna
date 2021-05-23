@@ -16,6 +16,7 @@
         PESEL: {{ p.pesel }}
     {% endfor %}
     </p>
+        <div class="myDiv" id="div1">
         <table>
     <th>Dokumenty pacjenta</th>
         {% for b in badania_mri %}
@@ -35,6 +36,7 @@
         {% endfor %}
     </tr>
 </table>
+        </div>
     <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Planuj leczenie" onClick="addDoc()"></p></div>
     <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Generuj raport" onClick="addDoc()"></p></div>
     </center>
