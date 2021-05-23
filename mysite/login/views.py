@@ -9,17 +9,52 @@ import json
 
 from django.http import HttpResponse
 
+import os
+import glob
+
 def index(request):
     return render(request,"index.html")
 
 def patientSite(request):
+    badania_lab = []
+    badania_mri = []
+    diagnozy = []
     patient_name = (request.GET["id"]).split("-")[0]
     patient_surname = (request.GET["id"]).split("-")[1]
     print(patient_name)
     print(patient_surname)
     patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
     print(patient1)
-    return render(request, "patientSite.html", {"pac": patient1})
+    badania_mri = glob.glob("data\\badania_mri\\*.xml")
+    badania_lab = glob.glob("data\\badania_lab\\*.xml")
+    diagnozy = glob.glob("data\\diagnozy\\*.xml")
+
+    for b in badania_mri:
+        if patient1[0].pesel not in b:
+            badania_mri.remove(b)
+
+    print(badania_mri)
+    for b in badania_lab:
+        if patient1[0].pesel not in b:
+            badania_lab.remove(b)
+
+    for b in diagnozy:
+        if patient1[0].pesel not in b:
+            diagnozy.remove(b)
+
+    return render(request, "patientSite.html", {"pac": patient1, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
+
+def badaniaMri(request):
+    print("xml function")
+    return render(request, 'badaniaMri.html')
+
+def badaniaLab(request):
+    print("xml function")
+    return render(request, 'badaniaLab.html')
+
+def diagnozy(request):
+    print("xml function")
+    return render(request, 'diagnoza.html')
 
 def loginPatient(request):
     if request.method == 'POST':

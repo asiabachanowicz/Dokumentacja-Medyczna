@@ -18,6 +18,27 @@
 {% endfor %}
 </h1>
     <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Dodaj dokument" onClick="addDoc()"></p></center></div>
+<div class="myDiv" id="div1">
+<table>
+    <th>Dokumenty pacjenta</th>
+        {% for b in badania_mri %}
+        <tr><td>
+            <a href="http://localhost:8000/data/badania_mri/{{ b }}">{{ b }}</a>
+        </td></tr>
+        {% endfor %}
+        {% for b in badania_lab %}
+        <tr><td>
+            <a href="http://localhost:8000/data/badania_lab/{{ b }}">{{ b }}</a>
+        </td></tr>
+        {% endfor %}
+        {% for b in diagnozy %}
+        <tr><td>
+            <a href="http://localhost:8000/data/diagnozy/{{ b }}">{{ b }}</a>
+        </td></tr>
+        {% endfor %}
+    </tr>
+</table>
+</div>
 </body>
 </html>
 <script>
