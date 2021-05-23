@@ -16,6 +16,7 @@ def index(request):
     return render(request,"index.html")
 
 def patientSite(request):
+    print(request)
     badania_lab = []
     badania_mri = []
     diagnozy = []
@@ -25,36 +26,56 @@ def patientSite(request):
     print(patient_surname)
     patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
     print(patient1)
-    badania_mri = glob.glob("data\\badania_mri\\*.xml")
-    badania_lab = glob.glob("data\\badania_lab\\*.xml")
-    diagnozy = glob.glob("data\\diagnozy\\*.xml")
+    badania_mri_1 = glob.glob("templates\\data\\badania_mri\\*.xml")
+    badania_lab_1 = glob.glob("templates\\data\\badania_lab\\*.xml")
+    diagnozy_1 = glob.glob("templates\\data\\diagnozy\\*.xml")
 
-    for b in badania_mri:
-        if patient1[0].pesel not in b:
-            badania_mri.remove(b)
+    for b in badania_mri_1:
+        if patient1[0].pesel in b:
+            badania_mri_1.remove(b)
+            b = str(b).replace("templates\\", "")
+            badania_mri.append(b)
 
-    print(badania_mri)
-    for b in badania_lab:
-        if patient1[0].pesel not in b:
-            badania_lab.remove(b)
+    for b in badania_lab_1:
+        if patient1[0].pesel in b:
+            badania_lab_1.remove(b)
+            b = str(b).replace("templates\\", "")
+            badania_lab.append(b)
 
-    for b in diagnozy:
-        if patient1[0].pesel not in b:
-            diagnozy.remove(b)
+    for b in diagnozy_1:
+        if patient1[0].pesel in b:
+            diagnozy_1.remove(b)
+            b = str(b).replace("templates\\", "")
+            diagnozy.append(b)
 
     return render(request, "patientSite.html", {"pac": patient1, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
 
 def badaniaMri(request):
     print("xml function")
-    return render(request, 'badaniaMri.html')
+    adres = str(request).split("/data/badania_mri")[2]
+    adres = "data/badania_mri" + adres
+    adres = adres[:-1]
+    adres = adres[:-1]
+    print(adres)
+    return render(request, adres)
 
 def badaniaLab(request):
     print("xml function")
-    return render(request, 'badaniaLab.html')
+    adres = str(request).split("/data/badania_lab")[2]
+    adres = "data/badania_lab" + adres
+    adres = adres[:-1]
+    adres = adres[:-1]
+    print(adres)
+    return render(request, adres)
 
 def diagnozy(request):
     print("xml function")
-    return render(request, 'diagnoza.html')
+    adres = str(request).split("/data/diagnozy")[2]
+    adres = "data/diagnozy" + adres
+    adres = adres[:-1]
+    adres = adres[:-1]
+    print(adres)
+    return render(request, adres)
 
 def loginPatient(request):
     if request.method == 'POST':
@@ -63,7 +84,31 @@ def loginPatient(request):
         print(patient)
         if patient.exists():
             print("zalogowano pacjenta")
-            return render(request, 'patient.html', {"pac": patient})
+            badania_lab = []
+            badania_mri = []
+            diagnozy = []
+            badania_mri_1 = glob.glob("templates\\data\\badania_mri\\*.xml")
+            badania_lab_1 = glob.glob("templates\\data\\badania_lab\\*.xml")
+            diagnozy_1 = glob.glob("templates\\data\\diagnozy\\*.xml")
+
+            for b in badania_mri_1:
+                if patient[0].pesel in b:
+                    badania_mri_1.remove(b)
+                    b = str(b).replace("templates\\", "")
+                    badania_mri.append(b)
+
+            for b in badania_lab_1:
+                if patient[0].pesel in b:
+                    badania_lab_1.remove(b)
+                    b = str(b).replace("templates\\", "")
+                    badania_lab.append(b)
+
+            for b in diagnozy_1:
+                if patient[0].pesel in b:
+                    diagnozy_1.remove(b)
+                    b = str(b).replace("templates\\", "")
+                    diagnozy.append(b)
+            return render(request, 'patient.html', {"pac": patient, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
         else:
             print("nie udalo sie zalogowac pacjenta")
     return render(request,'loginPatient.html')

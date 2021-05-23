@@ -16,6 +16,25 @@
         PESEL: {{ p.pesel }}
     {% endfor %}
     </p>
+        <table>
+    <th>Dokumenty pacjenta</th>
+        {% for b in badania_mri %}
+        <tr><td>
+            <a href="http://localhost:8000/data/badania_mri/{{ b }}">{{ b }}</a>
+        </td></tr>
+        {% endfor %}
+        {% for b in badania_lab %}
+        <tr><td>
+            <a href="http://localhost:8000/data/badania_lab/{{ b }}">{{ b }}</a>
+        </td></tr>
+        {% endfor %}
+        {% for b in diagnozy %}
+        <tr><td>
+            <a href="http://localhost:8000/data/diagnozy/{{ b }}">{{ b }}</a>
+        </td></tr>
+        {% endfor %}
+    </tr>
+</table>
     <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Planuj leczenie" onClick="addDoc()"></p></div>
     <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Generuj raport" onClick="addDoc()"></p></div>
     </center>

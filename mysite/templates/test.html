@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="loadXMLDoc()">
+{{ adres }}
+<div id="div1"> </div>
+</body>
+</html>
+<script>
+function loadXMLDoc() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      myFunction(this);
+    }
+  };
+  xmlhttp.open("GET", "../data/badania_mri/badanie_mri_60050450385_1.xml", true);
+  xmlhttp.send();
+}
+function myFunction(xml) {
+var xmlDoc = xml.responseXML;
+console.log(xmlDoc);
+
+}
+</script>
