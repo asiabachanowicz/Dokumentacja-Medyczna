@@ -9,6 +9,13 @@ import json
 
 from django.http import HttpResponse
 
+from lxml import etree
+import pdfkit
+import os
+import sys
+import pandas as pd
+from bs4 import BeautifulSoup
+
 import os
 import glob
 
@@ -51,30 +58,60 @@ def patientSite(request):
     return render(request, "patientSite.html", {"pac": patient1, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
 
 def badaniaMri(request):
-    print("xml function")
     adres = str(request).split("/data/badania_mri")[2]
     adres = "data/badania_mri" + adres
     adres = adres[:-1]
     adres = adres[:-1]
     print(adres)
+    files = os.listdir(os.curdir)
+    print(files)
+    xslt_doc = etree.parse("templates/data/badania_mri/schema_mri.xsl")
+    xslt_transformer = etree.XSLT(xslt_doc)
+
+    source_doc = etree.parse("templates/" + adres)
+    output_doc = xslt_transformer(source_doc)
+    adres = str(adres).replace("badanie_mri", "output")
+    adres = str(adres).replace(".xml", ".html")
+
+    output_doc.write("templates/" + adres, pretty_print=True)
     return render(request, adres)
 
 def badaniaLab(request):
-    print("xml function")
     adres = str(request).split("/data/badania_lab")[2]
     adres = "data/badania_lab" + adres
     adres = adres[:-1]
     adres = adres[:-1]
     print(adres)
+    files = os.listdir(os.curdir)
+    print(files)
+    xslt_doc = etree.parse("templates/data/badania_lab/schema_lab.xsl")
+    xslt_transformer = etree.XSLT(xslt_doc)
+
+    source_doc = etree.parse("templates/" + adres)
+    output_doc = xslt_transformer(source_doc)
+    adres = str(adres).replace("badanie_lab", "output")
+    adres = str(adres).replace(".xml", ".html")
+
+    output_doc.write("templates/" + adres, pretty_print=True)
     return render(request, adres)
 
 def diagnozy(request):
-    print("xml function")
     adres = str(request).split("/data/diagnozy")[2]
     adres = "data/diagnozy" + adres
     adres = adres[:-1]
     adres = adres[:-1]
     print(adres)
+    files = os.listdir(os.curdir)
+    print(files)
+    xslt_doc = etree.parse("templates/data/diagnozy/schema_diagnoza.xsl")
+    xslt_transformer = etree.XSLT(xslt_doc)
+
+    source_doc = etree.parse("templates/"+adres)
+    output_doc = xslt_transformer(source_doc)
+    adres = str(adres).replace("diagnoza", "output")
+    adres = str(adres).replace(".xml", ".html")
+
+    output_doc.write("templates/"+adres, pretty_print=True)
     return render(request, adres)
 
 def loginPatient(request):
