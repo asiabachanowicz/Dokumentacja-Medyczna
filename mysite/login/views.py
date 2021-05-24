@@ -129,19 +129,16 @@ def loginPatient(request):
 
             for b in badania_mri_1:
                 if patient[0].pesel in b:
-                    badania_mri_1.remove(b)
                     b = str(b).replace("templates\\", "")
                     badania_mri.append(b)
 
             for b in badania_lab_1:
                 if patient[0].pesel in b:
-                    badania_lab_1.remove(b)
                     b = str(b).replace("templates\\", "")
                     badania_lab.append(b)
 
             for b in diagnozy_1:
                 if patient[0].pesel in b:
-                    diagnozy_1.remove(b)
                     b = str(b).replace("templates\\", "")
                     diagnozy.append(b)
             return render(request, 'patient.html', {"pac": patient, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
