@@ -43,5 +43,12 @@
 </html>
 <script>
     function addDoc() {
+    var p = "{{ pac }}";
+    "{% for p in pac %}"
+         console.log("{{ p.imie }} {{ p.nazwisko }}");
+       var id=("{{ p.imie }}" + "-" + "{{ p.nazwisko }}");
+    "{% endfor %}"
+    console.log(p);
+    location.href = "http://localhost:8000/addDocument/?id=" + id;
     }
 </script>

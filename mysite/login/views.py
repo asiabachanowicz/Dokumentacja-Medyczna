@@ -18,6 +18,10 @@ from bs4 import BeautifulSoup
 import os
 import glob
 
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
+
 def index(request):
     return render(request,"index.html")
 
@@ -145,6 +149,48 @@ def loginPatient(request):
         else:
             print("nie udalo sie zalogowac pacjenta")
     return render(request,'loginPatient.html')
+
+def addDocument(request):
+    print("funkcja")
+    if request.method == "POST" or request.is_ajax():
+        print("test1")
+        file = request.FILES.get('file')
+        print(file)
+        print("test2")
+        badania_mri_1 = glob.glob("templates\\data\\badania_mri\\*.xml")
+        badania_lab_1 = glob.glob("templates\\data\\badania_lab\\*.xml")
+        diagnozy_1 = glob.glob("templates\\data\\diagnozy\\*.xml")
+        if request.POST["path"] == "badania_lab":
+            if file.name in badania_lab_1:
+                print("tak")
+                return render(request, 'addDocument.html')
+            if "lab" not in file.name:
+                print("tak")
+                return render(request, 'addDocument.html')
+            path = default_storage.save('templates/data/badania_lab/' + file.name, ContentFile(file.read()))
+        if request.POST["path"] == "badania_mri":
+            if file.name in badania_mri_1:
+                return render(request, 'addDocument.html')
+            if "mri" not in file.name:
+                print("tak")
+                return render(request, 'addDocument.html')
+            path = default_storage.save('templates/data/badania_mri/' + file.name, ContentFile(file.read()))
+        if request.POST["path"] == "diagnozy":
+            if file.name in diagnozy_1:
+                return render(request, 'addDocument.html')
+            if "diag" not in file.name:
+                print("tak")
+                return render(request, 'addDocument.html')
+            path = default_storage.save('templates/data/diagnozy/' + file.name, ContentFile(file.read()))
+    if request.method == "GET":
+        id = request.GET["id"]
+        name = str(id).split("-")[0]
+        surname = str(id).split("-")[1]
+
+        patient1 = Pacjent.objects.all().filter(imie=name).filter(nazwisko=surname)
+        print(patient1)
+
+    return render(request, 'addDocument.html')
 
 def report(request):
     pesel = (request.GET["pesel"])

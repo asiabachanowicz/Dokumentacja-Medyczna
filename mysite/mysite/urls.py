@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.urls import path
-from login.views import loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite, badaniaMri, badaniaLab, diagnozy, report
+from login.views import addDocument, loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite, badaniaMri, badaniaLab, diagnozy, report
 
 urlpatterns = [
     url('loginPatient/', loginPatient, name="loginPatient"),
@@ -27,6 +27,7 @@ urlpatterns = [
     url('doctor/', doctor, name="doctor"),
     url('patient-site/', patientSite, name='patientSite'),
     url('report/', report, name="report"),
+    url('addDocument', addDocument, name="addDocument"),
     url('data/badania_lab', badaniaLab, name="badaniaLab"),
     url('/data/badania_mri', badaniaMri, name="badaniaMri"),
     url('data/diagnozy/data', diagnozy, name="diagnozy"),

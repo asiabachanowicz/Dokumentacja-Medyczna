@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'upload_files.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'search.css' %}">
+</head>
+<body>
+<center>
+<p>Tutaj możesz dodać dokumenty dla pacjenta:</p>
+<div class="area" ondrop="dropHandler_lab(event);" ondragover="dragOverHandler_lab(event);">
+  <p>Dodaj badanie laboratoryjne</p>
+</div>
+<div class="area" ondrop="dropHandler_mri(event);" ondragover="dragOverHandler_mri(event);">
+  <p>Dodaj badanie MRI</p>
+</div>
+<div class="area" ondrop="dropHandler_diag(event);" ondragover="dragOverHandler_diag(event);">
+  <p>Dodaj diagnozę</p>
+</div>
+</center>
+</body>
+</html>
+<script>
+    function dropHandler_lab(ev) {
+  console.log('File(s) dropped');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+      // If dropped items aren't files, reject them
+      if (ev.dataTransfer.items[i].kind === 'file') {
+        var file = ev.dataTransfer.items[i].getAsFile();
+        console.log('... file[' + i + '].name = ' + file.name);
+      }
+      console.log(file);
+      var data = new FormData();
+        data.append('file', file);
+        data.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+        data.append('path', 'badania_lab');
+        console.log("wysyłam");
+        $.ajax({
+            url : "/addDocument/views.addDocument",
+            processData : false,
+            contentType : false,
+            type : 'POST',
+            data : data,
+        }).done(function(data) {
+            // work with data
+            console.log("wysłano");
+        });
+    }
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+    }
+  }
+}
+function dragOverHandler_lab(ev) {
+  console.log('File(s) in drop zone');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+}
+
+ function dropHandler_mri(ev) {
+  console.log('File(s) dropped');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+      // If dropped items aren't files, reject them
+      if (ev.dataTransfer.items[i].kind === 'file') {
+        var file = ev.dataTransfer.items[i].getAsFile();
+        console.log('... file[' + i + '].name = ' + file.name);
+      }
+      console.log(file);
+      var data = new FormData();
+        data.append('file', file);
+        data.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+        data.append('path', 'badania_mri');
+        console.log("wysyłam");
+        $.ajax({
+            url : "/addDocument/views.addDocument",
+            processData : false,
+            contentType : false,
+            type : 'POST',
+            data : data,
+        }).done(function(data) {
+            // work with data
+            console.log("wysłano");
+        });
+    }
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+    }
+  }
+}
+function dragOverHandler_mri(ev) {
+  console.log('File(s) in drop zone');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+}
+
+ function dropHandler_diag(ev) {
+  console.log('File(s) dropped');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+      // If dropped items aren't files, reject them
+      if (ev.dataTransfer.items[i].kind === 'file') {
+        var file = ev.dataTransfer.items[i].getAsFile();
+        console.log('... file[' + i + '].name = ' + file.name);
+      }
+      console.log(file);
+      var data = new FormData();
+        data.append('file', file);
+        data.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+        data.append('path', 'diagnozy');
+        console.log("wysyłam");
+        $.ajax({
+            url : "/addDocument/views.addDocument",
+            processData : false,
+            contentType : false,
+            type : 'POST',
+            data : data,
+        }).done(function(data) {
+            // work with data
+            console.log("wysłano");
+        });
+    }
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+    }
+  }
+}
+function dragOverHandler_diag(ev) {
+  console.log('File(s) in drop zone');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+}
+</script>
