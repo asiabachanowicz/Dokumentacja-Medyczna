@@ -1,0 +1,35 @@
+<!--#include file="a.html" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Raport</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'search.css' %}">
+</head>
+<body>
+    <center>
+    <h1>Porównanie wyników badań laboratoryjnych</h1>
+    </center>
+
+{% block content %}
+<table bgcolor=#f7ede3>
+    <tr>
+   <th>Pierwszy dokument</th>
+{% for first in firsts %}
+    <td>{{ first }}</td>
+{% endfor %}
+    </tr><tr>
+    <th>Drugi dokument</th>
+{% for second in seconds %}
+    <td>{{ second }}</td>
+{% endfor %}
+</tr>
+</table>
+{% endblock content %}
+
+</body>
+</html>
