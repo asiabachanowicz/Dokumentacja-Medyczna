@@ -57,7 +57,7 @@ def patientSite(request):
     return render(request, "patientSite.html", {"pac": patient1, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
 
 def badaniaMri(request):
-    adres = str(request).split("/data/badania_mri")[2]
+    adres = str(request).split("data/badania_mri")[2]
     adres = "data/badania_mri" + adres
     adres = adres[:-1]
     adres = adres[:-1]
@@ -113,6 +113,7 @@ def diagnozy(request):
     output_doc.write("templates/"+adres, pretty_print=True)
     return render(request, adres)
 
+
 def loginPatient(request):
     if request.method == 'POST':
         Pacjent.objects
@@ -145,6 +146,34 @@ def loginPatient(request):
         else:
             print("nie udalo sie zalogowac pacjenta")
     return render(request,'loginPatient.html')
+
+def report(request):
+   # pesel = (request.GET["id"]) -- tu problem
+   # string1 = ("templates/data/badania_lab/output_" + pesel + "_1")
+   # string2  = ("templates/data/badania_lab/output_" + pesel + "_2")
+
+    firsts = []
+    seconds = []
+    b="&#181;"
+
+    file1 = open("templates/data/badania_lab/output_60050450385_1.html", "r")
+    file2 = open("templates/data/badania_lab/output_60050450385_2.html", "r")
+
+    with file1, file2:
+        for file1Line, file2Line in zip(file1, file2):
+            if file1Line != file2Line:
+                print("file1"+file1Line.strip('\n'))
+                print("file2"+file2Line.strip('\n'))
+                firsts.append(file1Line)
+                seconds.append(file2Line)
+    firsts = [w.replace('<td>', ' ') for w in firsts]
+    seconds = [w.replace('<td>', ' ' ) for w in seconds]
+    firsts = [w.replace('</td>', ' ') for w in firsts]
+    seconds = [w.replace('</td>', ' ') for w in seconds]
+    firsts = [w.replace('&#181;', '\u03BC') for w in firsts]
+    seconds = [w.replace('&#181;', '\u03BC') for w in seconds]
+
+    return render(request, 'report.html', {'firsts':firsts, 'seconds':seconds})
 
 def registerPatient(request):
     if request.method == 'POST':
