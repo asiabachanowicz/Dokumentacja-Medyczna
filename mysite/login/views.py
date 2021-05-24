@@ -67,11 +67,6 @@ def patientSite(request):
 
     return render(request, "patientSite.html", {"pac": patient1, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
 
-def pdf_f(adres):
-    print("adres")
-    print(adres)
-    output_pdf = pdfkit.from_file("templates/" + adres, "out.pdf")
-
 def csv_f(adres):
     import winreg
     sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
@@ -124,8 +119,8 @@ def badaniaMri(request):
         pdf = True
     elif "csv" in str(request):
         csv = True
-    adres = str(request).split("/data/badania_lab")[2]
-    adres = "data/badania_lab" + adres
+    adres = str(request).split("/data/badania_mri")[2]
+    adres = "data/badania_mri" + adres
     adres = adres[:-1]
     adres = adres[:-1]
     files = os.listdir(os.curdir)
@@ -140,7 +135,10 @@ def badaniaMri(request):
 
     output_doc.write("templates/" + adres, pretty_print=True)
     if pdf:
-        pdf_f(adres)
+        new_adres = str(adres).split("/")[2].replace(".html", ".pdf")
+        config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+        output_pdf = pdfkit.from_file("templates/" + adres, new_adres, configuration=config)
+        return render(request, adres)
     if csv:
         csv_f(adres)
     return render(request, adres)
@@ -169,7 +167,10 @@ def badaniaLab(request):
 
     output_doc.write("templates/" + adres, pretty_print=True)
     if pdf:
-        pdf_f(adres)
+        new_adres = str(adres).split("/")[2].replace(".html", ".pdf")
+        config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+        output_pdf = pdfkit.from_file("templates/" + adres, new_adres, configuration=config)
+        return render(request, adres)
     if csv:
         csv_f(adres)
     print(adres)
@@ -183,8 +184,8 @@ def diagnozy(request):
         pdf = True
     elif "csv" in str(request):
         csv = True
-    adres = str(request).split("/data/badania_lab")[2]
-    adres = "data/badania_lab" + adres
+    adres = str(request).split("/data/diagnozy")[2]
+    adres = "data/diagnozy" + adres
     adres = adres[:-1]
     adres = adres[:-1]
     files = os.listdir(os.curdir)
@@ -199,7 +200,10 @@ def diagnozy(request):
 
     output_doc.write("templates/"+adres, pretty_print=True)
     if pdf:
-        pdf_f(adres)
+        new_adres = str(adres).split("/")[2].replace(".html", ".pdf")
+        config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+        output_pdf = pdfkit.from_file("templates/" + adres, new_adres, configuration=config)
+        return render(request, adres)
     if csv:
         csv_f(adres)
     return render(request, adres)

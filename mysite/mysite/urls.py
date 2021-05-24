@@ -30,7 +30,7 @@ urlpatterns = [
     url('addDocument', addDocument, name="addDocument"),
     url('data/badania_lab', badaniaLab, name="badaniaLab"),
     url('/data/badania_mri', badaniaMri, name="badaniaMri"),
-    url('data/diagnozy/data', diagnozy, name="diagnozy"),
+    url('data/diagnozy', diagnozy, name="diagnozy"),
     url('', index, name="index"),
     path('doctor/', doctor, name='doctor'),
 ]
