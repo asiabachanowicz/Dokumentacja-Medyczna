@@ -1,4 +1,5 @@
 import shutil
+from pathlib import Path
 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -29,6 +30,13 @@ import glob
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
+
+import winreg
+sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
+downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
+downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
+with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
+    location = winreg.QueryValueEx(key, downloads_guid)[0]
 
 def index(request):
     return render(request,"index.html")
@@ -67,12 +75,9 @@ def patientSite(request):
 
     return render(request, "patientSite.html", {"pac": patient1, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
 
+
 def csv_f(adres):
-    import winreg
-    sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
-    downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
-    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
-        location = winreg.QueryValueEx(key, downloads_guid)[0]
+
 
     print("csv")
     print(adres)
@@ -106,9 +111,12 @@ def csv_f(adres):
     # Converting Pandas DataFrame into CSV file
     adres = str(adres).split("/")[2].replace(".html", ".csv")
     print(adres)
-
     dst = location
-    shutil.move(adres, dst)
+    my_file = Path(os.path.join(location, adres))
+    if my_file.is_file():
+        print("File exist")
+    else:
+         shutil.move(adres, dst)
     dataFrame.to_csv(adres)
 
 def badaniaMri(request):
@@ -138,6 +146,12 @@ def badaniaMri(request):
         new_adres = str(adres).split("/")[2].replace(".html", ".pdf")
         config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
         output_pdf = pdfkit.from_file("templates/" + adres, new_adres, configuration=config)
+        dst = location
+        my_file = Path(os.path.join(location, new_adres))
+        if my_file.is_file():
+            print("File exist")
+        else:
+            shutil.move(new_adres, dst)
         return render(request, adres)
     if csv:
         csv_f(adres)
@@ -170,6 +184,12 @@ def badaniaLab(request):
         new_adres = str(adres).split("/")[2].replace(".html", ".pdf")
         config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
         output_pdf = pdfkit.from_file("templates/" + adres, new_adres, configuration=config)
+        dst = location
+        my_file = Path(os.path.join(location,new_adres))
+        if my_file.is_file():
+            print("File exist")
+        else:
+            shutil.move(new_adres, dst)
         return render(request, adres)
     if csv:
         csv_f(adres)
@@ -203,6 +223,12 @@ def diagnozy(request):
         new_adres = str(adres).split("/")[2].replace(".html", ".pdf")
         config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
         output_pdf = pdfkit.from_file("templates/" + adres, new_adres, configuration=config)
+        dst = location
+        my_file = Path(os.path.join(location, new_adres))
+        if my_file.is_file():
+            print("File exist")
+        else:
+            shutil.move(new_adres, dst)
         return render(request, adres)
     if csv:
         csv_f(adres)
