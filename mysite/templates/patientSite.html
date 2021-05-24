@@ -23,17 +23,29 @@
     <th>Dokumenty pacjenta</th>
         {% for b in badania_mri %}
         <tr><td>
-            <a href="http://localhost:8000/data/badania_mri/{{ b }}">{{ b }}</a>
-        </td></tr>
+            <div class="center_div"><a href="http://localhost:8000/data/badania_mri/{{ b }}">{{ b }}</a></div>
+            <div class="button_container">
+                <a href="http://localhost:8000/data/badania_mri/pdf/{{ b }}" class="button">PDF</a>
+            </div>
+        </td>
+        </tr>
         {% endfor %}
         {% for b in badania_lab %}
         <tr><td>
-            <a href="http://localhost:8000/data/badania_lab/{{ b }}">{{ b }}</a>
-        </td></tr>
+            <div class="center_div"><a href="http://localhost:8000/data/badania_lab/{{ b }}">{{ b }}</a></div>
+            <div class="button_container">
+                <a href="http://localhost:8000/data/badania_lab/pdf/{{ b }}" class="button">PDF</a>
+                <a href="http://localhost:8000/data/badania_lab/csv/{{ b }}" class="button">CSV</a>
+            </div>
+        </td>
+        </tr>
         {% endfor %}
         {% for b in diagnozy %}
         <tr><td>
-            <a href="http://localhost:8000/data/diagnozy/{{ b }}">{{ b }}</a>
+            <div class="center_div>"><a href="http://localhost:8000/data/diagnozy/{{ b }}">{{ b }}</a></div>
+            <div class="button_container">
+                <a href="http://localhost:8000/data/diagnozy/pdf/{{ b }}" class="button">PDF</a>
+            </div>
         </td></tr>
         {% endfor %}
     </tr>

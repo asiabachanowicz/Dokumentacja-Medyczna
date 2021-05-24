@@ -14,6 +14,12 @@ import os
 import sys
 import pandas as pd
 from bs4 import BeautifulSoup
+from lxml import etree
+import pdfkit
+import os
+import sys
+import pandas as pd
+from bs4 import BeautifulSoup
 
 import os
 import glob
@@ -59,12 +65,58 @@ def patientSite(request):
 
     return render(request, "patientSite.html", {"pac": patient1, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
 
-def badaniaMri(request):
-    adres = str(request).split("data/badania_mri")[2]
-    adres = "data/badania_mri" + adres
-    adres = adres[:-1]
-    adres = adres[:-1]
+def pdf_f(adres):
+    print("adres")
     print(adres)
+    output_pdf = pdfkit.from_file("templates/" + adres, "out.pdf")
+
+def csv_f(adres):
+    print("csv")
+    print(adres)
+    # convert html to csv
+    data = []
+    # for getting the header from the HTML file
+    list_header = []
+    soup = BeautifulSoup(open("templates/" + adres),'html.parser')
+    header = soup.find_all("table")[0].find("tr")
+    for items in header:
+        try:
+            list_header.append(items.get_text())
+        except:
+            continue
+
+    # for getting the data
+    HTML_data = soup.find_all("table")[0].find_all("tr")[1:]
+
+    for element in HTML_data:
+        sub_data = []
+        for sub_element in element:
+            try:
+                sub_data.append(sub_element.get_text())
+            except:
+                continue
+        data.append(sub_data)
+
+    # Storing the data into Pandas DataFrame
+    dataFrame = pd.DataFrame(data = data, columns = list_header)
+
+    # Converting Pandas DataFrame into CSV file
+    adres = str(adres).split("/")[2].replace(".html", ".csv")
+    print(adres)
+    dataFrame.to_csv(adres)
+
+def badaniaMri(request):
+    print(request)
+    csv = False
+    pdf = False
+    if "pdf" in str(request):
+        pdf = True
+    elif "csv" in str(request):
+        csv = True
+    adres = str(request).split("/data/badania_lab")[2]
+    adres = "data/badania_lab" + adres
+    adres = adres[:-1]
+    adres = adres[:-1]
     files = os.listdir(os.curdir)
     print(files)
     xslt_doc = etree.parse("templates/data/badania_mri/schema_mri.xsl")
@@ -76,16 +128,26 @@ def badaniaMri(request):
     adres = str(adres).replace(".xml", ".html")
 
     output_doc.write("templates/" + adres, pretty_print=True)
+    if pdf:
+        pdf_f(adres)
+    if csv:
+        csv_f(adres)
     return render(request, adres)
 
 def badaniaLab(request):
+    print(request)
+    csv = False
+    pdf = False
+    if "pdf" in str(request):
+        pdf = True
+    elif "csv" in str(request):
+        csv = True
     adres = str(request).split("/data/badania_lab")[2]
     adres = "data/badania_lab" + adres
     adres = adres[:-1]
     adres = adres[:-1]
-    print(adres)
+
     files = os.listdir(os.curdir)
-    print(files)
     xslt_doc = etree.parse("templates/data/badania_lab/schema_lab.xsl")
     xslt_transformer = etree.XSLT(xslt_doc)
 
@@ -95,14 +157,25 @@ def badaniaLab(request):
     adres = str(adres).replace(".xml", ".html")
 
     output_doc.write("templates/" + adres, pretty_print=True)
+    if pdf:
+        pdf_f(adres)
+    if csv:
+        csv_f(adres)
+    print(adres)
     return render(request, adres)
 
 def diagnozy(request):
-    adres = str(request).split("/data/diagnozy")[2]
-    adres = "data/diagnozy" + adres
+    print(request)
+    csv = False
+    pdf = False
+    if "pdf" in str(request):
+        pdf = True
+    elif "csv" in str(request):
+        csv = True
+    adres = str(request).split("/data/badania_lab")[2]
+    adres = "data/badania_lab" + adres
     adres = adres[:-1]
     adres = adres[:-1]
-    print(adres)
     files = os.listdir(os.curdir)
     print(files)
     xslt_doc = etree.parse("templates/data/diagnozy/schema_diagnoza.xsl")
@@ -114,6 +187,10 @@ def diagnozy(request):
     adres = str(adres).replace(".xml", ".html")
 
     output_doc.write("templates/"+adres, pretty_print=True)
+    if pdf:
+        pdf_f(adres)
+    if csv:
+        csv_f(adres)
     return render(request, adres)
 
 
