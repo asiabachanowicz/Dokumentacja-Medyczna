@@ -10,7 +10,6 @@ import json
 from django.http import HttpResponse
 
 from lxml import etree
-import pdfkit
 import os
 import sys
 import pandas as pd
@@ -148,16 +147,16 @@ def loginPatient(request):
     return render(request,'loginPatient.html')
 
 def report(request):
-   # pesel = (request.GET["id"]) -- tu problem
-   # string1 = ("templates/data/badania_lab/output_" + pesel + "_1")
-   # string2  = ("templates/data/badania_lab/output_" + pesel + "_2")
+    pesel = (request.GET["pesel"])
+    string1 = ("templates/data/badania_lab/output_" + pesel + "_1.html")
+    string2  = ("templates/data/badania_lab/output_" + pesel + "_2.html")
 
     firsts = []
     seconds = []
     b="&#181;"
 
-    file1 = open("templates/data/badania_lab/output_60050450385_1.html", "r")
-    file2 = open("templates/data/badania_lab/output_60050450385_2.html", "r")
+    file1 = open(string1, "r")
+    file2 = open(string2, "r")
 
     with file1, file2:
         for file1Line, file2Line in zip(file1, file2):
