@@ -39,21 +39,20 @@ def patientSite(request):
 
     for b in badania_mri_1:
         if patient1[0].pesel in b:
-            badania_mri_1.remove(b)
             b = str(b).replace("templates\\", "")
             badania_mri.append(b)
 
     for b in badania_lab_1:
         if patient1[0].pesel in b:
-            badania_lab_1.remove(b)
             b = str(b).replace("templates\\", "")
             badania_lab.append(b)
 
     for b in diagnozy_1:
         if patient1[0].pesel in b:
-            diagnozy_1.remove(b)
             b = str(b).replace("templates\\", "")
             diagnozy.append(b)
+
+    print(badania_lab)
 
     return render(request, "patientSite.html", {"pac": patient1, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
 
