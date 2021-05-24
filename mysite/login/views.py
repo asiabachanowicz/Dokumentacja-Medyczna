@@ -1,3 +1,5 @@
+import shutil
+
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import Pacjent
@@ -71,6 +73,12 @@ def pdf_f(adres):
     output_pdf = pdfkit.from_file("templates/" + adres, "out.pdf")
 
 def csv_f(adres):
+    import winreg
+    sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
+    downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
+    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
+        location = winreg.QueryValueEx(key, downloads_guid)[0]
+
     print("csv")
     print(adres)
     # convert html to csv
@@ -103,6 +111,9 @@ def csv_f(adres):
     # Converting Pandas DataFrame into CSV file
     adres = str(adres).split("/")[2].replace(".html", ".csv")
     print(adres)
+
+    dst = location
+    shutil.move(adres, dst)
     dataFrame.to_csv(adres)
 
 def badaniaMri(request):
@@ -289,7 +300,7 @@ def report(request):
                 firsts.append(file1Line)
                 seconds.append(file2Line)
     firsts = [w.replace('<td>', ' ') for w in firsts]
-    seconds = [w.replace('<td>', ' ' ) for w in seconds]
+    seconds = [w.replace('<td>', ' ') for w in seconds]
     firsts = [w.replace('</td>', ' ') for w in firsts]
     seconds = [w.replace('</td>', ' ') for w in seconds]
     firsts = [w.replace('&#181;', '\u03BC') for w in firsts]
