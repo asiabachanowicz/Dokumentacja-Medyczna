@@ -423,3 +423,72 @@ def doctor(request):
     pac = Pacjent.objects.all()
 
     return render(request,"doctor.html", {'pac':pac})
+   
+   
+
+def DiagnoseSite(request):
+    return render(request, 'DiagnoseSite.html')
+
+def DiagnoseSiteNew(request):
+    podejrzenie = (request.GET["report"])
+    teksts=[]
+    if (podejrzenie == 'Stwardnienie rozsiane'):
+        teksts.append("Dla stwardnienia rozsianego zaleca się w pierwszej kolejności wykonanie badań:")
+        teksts.append("-Rezonans magnetyczny głowy,")
+        teksts.append("-Rezonans magnetyczny rdzenia kręgowego,")
+        teksts.append("Jeśli wykryto obszary demielinizacji to badanie jednoznacznie wskazuje na chorobę")
+        teksts.append("Jeśli wyniki są niejednoznaczne to zalecia się badania:")
+        teksts.append("-Badanie płynu mózgowo-rdzeniowego")
+        teksts.append("-Badanie potencjałów wywołanych")
+        teksts.append("")
+        return render(request, 'DiagnoseSiteNew.html', {"teksts":teksts})
+    if (podejrzenie == 'Udar mózgu'):
+        teksts.append("Dla udaru mózgu zaleca się w pierwszej kolejności wykonanie badań:")
+        teksts.append("-Rezonans magnetyczny głowy,")
+        teksts.append("-Tomografia komputerowa,")
+        teksts.append("")
+        teksts.append("Jeśli w badaniu widać zmiany niedokrwienne i skrzepliny to zalecia się wykonanie:")
+        teksts.append("-Angiografii Tomografią komputerową Perfyzyjną")
+        teksts.append("-Rezonans magnetyczny DWI,")
+        teksts.append("")
+        teksts.append("Jeśli wykryto krwotok wewnątrzczaszkowy to zaleca się wykonanie badań:")
+        teksts.append("-USG tętnic szyjnych,")
+        teksts.append("-Echokardiografię,")
+        teksts.append("-Badania krwi")
+        teksts.append("")
+        return render(request, 'DiagnoseSiteNew.html', {"teksts":teksts})
+    if (podejrzenie == 'Padaczka'):
+        teksts.append("Dla podejrzenia padaczki zaleca się w pierwszej kolejności wykonanie badań:")
+        teksts.append("-EEG,")
+        teksts.append("-Jądrowy rezonans magnetyczny głowy,")
+        teksts.append("-Tomografia komputerowa,")
+        teksts.append("-Badania krwi")
+        teksts.append("")
+        teksts.append("Badania SPECT, fMRI, MEG, PET oraz EEG pozwalają na uwidocznienie ognisk padaczkowych")
+        teksts.append("Badania tomografii or MRI pozwalają na wykrycie obecności guzów, torbieli, krwiaków w obrębie mózgowia")
+        teksts.append("W celu wykrycia biomarkerów biochemicznych lub psychologicznych wykonuje się konsultacje psychologiczne oraz badania laboratoryjne")
+        teksts.append("")
+
+        return render(request, 'DiagnoseSiteNew.html', {"teksts":teksts})
+    if (podejrzenie == 'Choroba Parkinsona'):
+        teksts.append("Do badania choroby Parkinsona należy wykonać badania behawioralne oceniające, czy osoba spełnia charakterystyczne cechy dla tej choroby, takie jak:")
+        teksts.append("-Drżenie rąk")
+        teksts.append("-Wolne ruchy twarzą, ustami i ciałem")
+        teksts.append("-Niestabilna postawa i sztywność ciała")
+        teksts.append("Jako dodatkową ocenę stosuje się badania obrazowe:")
+        teksts.append("-Rezonans magnetyczny głowy (MRI)")
+        teksts.append("-Tomografię emisyjną pojedynczych fotonów (SPECT)")
+        teksts.append("Tomografię Komputerową (TK)")
+        teksts.append("")
+        return render(request, 'DiagnoseSiteNew.html', {"teksts":teksts})
+    if (podejrzenie == 'Choroba Alzheimera'):
+        teksts.append("Do badania choroby Alzheimera zaleca się w pierwszej kolejności wykonanie badań:")
+        teksts.append("-Badania laboratoryjne do rozpoznania schorzeń ogólnoustrojowych,")
+        teksts.append("-Badania obrazowe, takie jak rezonans magnetyczny i tomografia komputerowa do wykrycia zmian ogniskowych mózgu, wpływających na otępienie")
+        teksts.append("-Konsultacja psychiatryczna do wykonania szczegółowego wywiadu i postawieniu diagnozy")
+        teksts.append("")
+        return render(request, 'DiagnoseSiteNew.html', {"teksts":teksts})
+
+    return render(request, 'DiagnoseSiteNew.html')
+
+
