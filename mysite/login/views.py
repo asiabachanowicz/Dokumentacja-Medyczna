@@ -429,6 +429,24 @@ def doctor(request):
 def diagnose(request):
     return render(request, 'diagnose.html')
 
+
+def Udar_mozgu(request):
+    teksts = []
+    teksts.append("Dla udaru mózgu zaleca się w pierwszej kolejności wykonanie badań:")
+    teksts.append("-Rezonans magnetyczny głowy,")
+    teksts.append("-Tomografia komputerowa,")
+    teksts.append("")
+    teksts.append("Jeśli w badaniu widać zmiany niedokrwienne i skrzepliny to zalecia się wykonanie:")
+    teksts.append("-Angiografii Tomografią komputerową Perfyzyjną")
+    teksts.append("-Rezonans magnetyczny DWI,")
+    teksts.append("")
+    teksts.append("Jeśli wykryto krwotok wewnątrzczaszkowy to zaleca się wykonanie badań:")
+    teksts.append("-USG tętnic szyjnych,")
+    teksts.append("-Echokardiografię,")
+    teksts.append("-Badania krwi")
+    teksts.append("")
+    return render(request, 'Udar_mozgu.html', {"teksts": teksts})
+
 def DiagnoseSiteNew(request):
     podejrzenie = (request.GET["report"])
     teksts=[]

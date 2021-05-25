@@ -16,10 +16,11 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.urls import path
-from login.views import addDocument, DiagnoseSiteNew, diagnose, loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite, badaniaMri, badaniaLab, diagnozy, report
+from login.views import addDocument, Udar_mozgu, DiagnoseSiteNew, diagnose, loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite, badaniaMri, badaniaLab, diagnozy, report
 
 urlpatterns = [
     url('DiagnoseSiteNew/', DiagnoseSiteNew, name="DiagnoseSiteNew"),
+    url('Udar_mozgu/', Udar_mozgu, name="Udar_mozgu"),
     #url('DiagnoseSite/', DiagnoseSite, name="DiagnoseSite"),
     url('loginPatient/', loginPatient, name="loginPatient"),
     url('loginDoctor/', loginDoctor, name="loginDoctor"),

@@ -7,66 +7,45 @@
 
 <div class="login">
   <form method="post" action=""/> {% csrf_token %}
-
   <!-- Lista wyboru choroby -->
     <label for="Choroba">Choroba:</label>
      <p></p>
      <select name="Choroba" id="Choroba" >
-       <option value="Stwardnienie rozsiane">Stwardnienie rozsiane</option>
-       <option value="Udar mózgu">Udar mózgu</option>
+       <option value="Udar_mozgu">Udar mózgu</option>
        <option value="Padaczka">Padaczka</option>
-       <option value="Choroba Parkinsona">Choroba Parkinsona</option>
-       <option value="Choroba Alzheimera">Choroba Alzheimera</option>
+       <option value="Choroba_Parkinsona">Choroba Parkinsona</option>
+       <option value="Choroba_Alzheimera">Choroba Alzheimera</option>
+       <option value="Stwardnienie_rozsiane">Stwardnienie rozsiane</option>
+
      </select>
 </div>
-<!-- Lista wyboru badania, value to samo co wyświetlana nazwa na stronie -->
-<!-- <p></p>-->
-<!--    <label for="Badania Laboratoryjne">Badania Laboratoryjne:</label>-->
-<!--     <p></p>-->
-<!--     <select name="Badania Laboratoryjne">-->
-<!--       <option value="Rezonans magnetyczny głowy ">Rezonans magnetyczny głowy </option>-->
-<!--       <option value="Rezonans magnetyczny rdzenia kręgowego">Rezonans magnetyczny rdzenia kręgowego</option>-->
-<!--       <option value="Rezonans magnetyczny DWI">Rezonans magnetyczny DWI</option>-->
-<!--       <option value="Badanie potencjałów wywołanych">Badanie potencjałów wywołanych</option>-->
-<!--       <option value="Badanie płynu mózgowo-rdzeniowego">Badanie płynu mózgowo-rdzeniowego</option>-->
-<!--       <option value="Tomografia Komputerowa">Tomografia Komputerowa</option>-->
-<!--       <option value="Perfuzyjna Tomografia Komputerowa">Perfuzyjna Tomografia Komputerowa</option>-->
-<!--       <option value="USG tętnic szyjnych">USG tętnic szyjnych</option>-->
-<!--       <option value="Echokardiografia">Echokardiografia</option>-->
-<!--       <option value="Badania Krwi">Badania Krwi</option>-->
-<!--       <option value="SPECT">SPECT</option>-->
-<!--       <option value="fMRI">fMRI</option>-->
-<!--       <option value="MEG">MEG</option>-->
-<!--       <option value="PET">PET</option>-->
-<!--       <option value="EEG">EEG</option>-->
-<!--     </select>-->
-<!-- <p></p>-->
 
-<!--&lt;!&ndash; Lista wyboru badań lekarskich &ndash;&gt;-->
-<!--    <label for="Badanie specjalistyczne">Badanie specjalistyczne:</label>-->
-<!--     <p></p>-->
-<!--     <select name="Badanie specjalistyczne">-->
-<!--       <option value="Konsultacja neurologiczna">Konsultacja neurologiczna</option>-->
-<!--       <option value="Konsultacja psychologiczna">Konsultacja psychologiczna</option>-->
-<!--       <option value="Konsultacja psychiatryczna">Konsultacja psychiatryczna</option>-->
-<!--       <option value="Badania behawioralne">Badania behawioralne</option>-->
-<!--       <option value="Rozpoznanie schorzeń ogólnoustrojowych">Rozpoznanie schorzeń ogólnoustrojowych</option>-->
-<!--     </select>-->
-<!--  </form>-->
-<!--</div>-->
+  <center><p class="submit"><input type="submit" id="procedura" name="procedura" value="Zaproponuj procedurę medyczną" onClick="newsite()">   </p></center>
+
+<script type="text/javascript">
+
+    function newsite() {
+    var sel = document.getElementById("Choroba");
+    var option = sel.options[sel.selectedIndex];
+    //assuming that there is always a selection
+    var text = option.text;
+    var value = option.value;
+    console.log(value);
+    location.href = "http://localhost:8000/" + value;
+    console.log(location.href);
+    }
 
 
-<div>
-  <left><p class="submit"><input type="submit" id="procedura" name="procedura" value="Zaproponuj procedurę medyczną" onClick="moveToReport()">   </p></left>
-</div>
-      <script type="text/javascript">
+<!--    document.getElementById("procedura").onclick = function () {-->
+<!--    var sel = document.getElementById("Choroba");-->
+<!--    var option = sel.options[sel.selectedIndex];-->
+<!--    //assuming that there is always a selection-->
+<!--    var text = option.text;-->
+<!--    var value = option.value;-->
+<!--    console.log(text, value);-->
+<!--    location.href = "http://localhost:8000/DiagnoseSiteNew/?report=" + text;-->
 
-    var e = document.getElementById("Choroba");
-    var rodzaj_choroby = e.options[e.selectedIndex].text;
 
-    document.getElementById("procedura").onclick = function () {
-    location.href = "http://localhost:8000/DiagnoseSiteNew/?report=" + rodzaj_choroby;
-}
 </script>
 
 </html>
