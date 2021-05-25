@@ -37,7 +37,7 @@
     </tr>
 </table>
         </div>
-    <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Planuj leczenie" onClick="addDoc()"></p></div>
+    <p class="submit" style="display: inline-block;"><input type="submit" id="diagnose" name="diagnose" value="Planuj leczenie" onClick="moveToDiagnose()"></p></div>
     <p class="submit" style="display: inline-block;"><input type="submit" id="report" name="report" value="Generuj raport" onClick="moveToReport()"></p></div>
     </center>
 </body>
@@ -55,5 +55,11 @@
     document.getElementById("report").onclick = function () {
     location.href = "http://localhost:8000/report/?pesel=" + id;
 
+  }
+</script>
+
+<script type="text/javascript">
+  document.getElementById("diagnose").onclick = function () {
+    location.href = "http://localhost:8000/diagnose/";
   }
 </script>

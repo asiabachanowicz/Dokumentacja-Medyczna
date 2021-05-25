@@ -426,8 +426,8 @@ def doctor(request):
    
    
 
-def DiagnoseSite(request):
-    return render(request, 'DiagnoseSite.html')
+def diagnose(request):
+    return render(request, 'diagnose.html')
 
 def DiagnoseSiteNew(request):
     podejrzenie = (request.GET["report"])
