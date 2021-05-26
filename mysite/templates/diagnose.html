@@ -23,6 +23,12 @@
   <center><p class="submit"><input type="button" id="procedura" name="procedura" value="Zaproponuj procedurę medyczną" onClick="newsite()">   </p></center>
 
 <script type="text/javascript">
+var p = "{{ pac }}";
+    "{% for p in pac %}"
+         console.log("{{ p.imie }} {{ p.nazwisko }}");
+       var id=("{{ p.imie }}" + "-" + "{{ p.nazwisko }}");
+    "{% endfor %}"
+    console.log(p);
 
     function newsite() {
     var sel = document.getElementById("Choroba");
@@ -33,20 +39,20 @@
     console.log(value);
     if (value=='Udar_mozgu') {
         console.log("udar");
-        window.location.href = "http://localhost:8000/Udar_mozgu/";
+        window.location.href = "http://localhost:8000/Udar_mozgu/?id="+id;
     }
     else if (value=='Padaczka') {
-        window.location.href = "http://localhost:8000/Padaczka/";
+        window.location.href = "http://localhost:8000/Padaczka/?id="+id;
     }
     else if (value=='Choroba_Parkinsona') {
-        window.location.href = "http://localhost:8000/Choroba_Parkinsona/";
+        window.location.href = "http://localhost:8000/Choroba_Parkinsona/?id="+id;
     }
     else if (value=='Choroba_Alzheimera') {
-        window.location.href = "http://localhost:8000/Choroba_Alzheimera/";
+        window.location.href = "http://localhost:8000/Choroba_Alzheimera/?id="+id;
     }
     else if (value=='Stwardnienie_rozsiane') {
         console.log("udar");
-        window.location.href = "http://localhost:8000/Stwardnienie_rozsiane/";
+        window.location.href = "http://localhost:8000/Stwardnienie_rozsiane/?id="+id;
     }
 <!--    location.href = "http://localhost:8000/" + value;-->
     console.log(location.href);

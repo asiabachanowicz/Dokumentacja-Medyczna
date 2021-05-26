@@ -427,7 +427,15 @@ def doctor(request):
 
 
 def diagnose(request):
-    return render(request, 'diagnose.html')
+    print("test")
+    print(request.GET['id'])
+    patient_name = (request.GET["id"]).split("-")[0]
+    patient_surname = (request.GET["id"]).split("-")[1]
+    print(patient_name)
+    print(patient_surname)
+    patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
+    print(patient1)
+    return render(request, 'diagnose.html', {"pac": patient1})
 
 
 def Udar_mozgu(request):

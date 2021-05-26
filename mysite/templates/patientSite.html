@@ -58,16 +58,16 @@
 </body>
 </html>
 <script>
-    function addDoc() {
-    var p = "{{ pac }}";
+var p = "{{ pac }}";
     "{% for p in pac %}"
          console.log("{{ p.imie }} {{ p.nazwisko }}");
        var id=("{{ p.imie }}" + "-" + "{{ p.nazwisko }}");
     "{% endfor %}"
     console.log(p);
+    function addDoc() {
     location.href = "http://localhost:8000/addDocument/?id=" + id;
     }
     document.getElementById("diagnose").onclick = function () {
-    location.href = "http://localhost:8000/diagnose/";
+    location.href = "http://localhost:8000/diagnose/?id=" + id;
   }
 </script>

@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.urls import path
-from login.views import addDocument, Udar_mozgu, Stwardnienie_rozsiane,Padaczka,Choroba_Parkinsona,Choroba_Alzheimera, DiagnoseSiteNew, diagnose, loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite, badaniaMri, badaniaLab, diagnozy, report
+from login.views import diagnose, addDocument, Udar_mozgu, Stwardnienie_rozsiane,Padaczka,Choroba_Parkinsona,Choroba_Alzheimera, DiagnoseSiteNew, diagnose, loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite, badaniaMri, badaniaLab, diagnozy, report
 
 urlpatterns = [
     url('DiagnoseSiteNew/', DiagnoseSiteNew, name="DiagnoseSiteNew"),
