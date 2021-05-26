@@ -26,10 +26,13 @@
 {% endfor %}
 {% endblock content %}
 
+
+<form method="post" action=""> {% csrf_token %}
+
     <p></p>
     <label for="Badania Laboratoryjne">Wybierz badania, na które skierować pacjenta:</label>
      <p></p>
-     <select name="Badania Laboratoryjne" multiple size = 8>
+     <select name="Badania Laboratoryjne" size = 8>
        <option value="Rezonans magnetyczny głowy ">Rezonans magnetyczny głowy </option>
        <option value="Rezonans magnetyczny rdzenia kręgowego">Rezonans magnetyczny rdzenia kręgowego</option>
        <option value="Rezonans magnetyczny DWI">Rezonans magnetyczny DWI</option>
@@ -45,20 +48,20 @@
        <option value="MEG">MEG</option>
        <option value="PET">PET</option>
        <option value="EEG">EEG</option>
-         <option value="Konsultacja neurologiczna">Konsultacja neurologiczna</option>-->
+       <option value="Konsultacja neurologiczna">Konsultacja neurologiczna</option>-->
        <option value="Konsultacja psychologiczna">Konsultacja psychologiczna</option>
        <option value="Konsultacja psychiatryczna">Konsultacja psychiatryczna</option>
        <option value="Badania behawioralne">Badania behawioralne</option>
        <option value="Rozpoznanie schorzeń ogólnoustrojowych">Rozpoznanie schorzeń ogólnoustrojowych</option>
+        <p></p>
+
+
+         <p class="submit"><input type="submit" name="commit" value="Skieruj pacjenta"></p>
+
 
      </select>
  <p></p>
-
-<br>
-    <button type="button">Skieruj pacjenta</button>
-
-<!--<center><p class="submit"><input type="button" id="Skieruj" name="Skieruj" value="Skieruj pacjenta" onClick="skieruj()">   </p></center>-->
-
+</form>
 
 
 <script type="text/javascript">

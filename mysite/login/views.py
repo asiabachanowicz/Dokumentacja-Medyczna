@@ -31,12 +31,12 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
 
-# import winreg
+import winreg
 sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
 downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
 downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
-# with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
-#     location = winreg.QueryValueEx(key, downloads_guid)[0]
+with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
+     location = winreg.QueryValueEx(key, downloads_guid)[0]
 
 def index(request):
     return render(request,"index.html")
@@ -263,7 +263,12 @@ def loginPatient(request):
                 if patient[0].pesel in b:
                     b = str(b).replace("templates\\", "")
                     diagnozy.append(b)
-            return render(request, 'patient.html', {"pac": patient, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy})
+            field_object = Pacjent._meta.get_field('nazwa_badania')
+            print(field_object)
+            skierowania = field_object.value_from_object(patient[0])
+            print(skierowania)
+
+            return render(request, 'patient.html', {"pac": patient, "badania_mri": badania_mri, "badania_lab": badania_lab, "diagnozy": diagnozy, "skierowania":skierowania})
         else:
             print("nie udalo sie zalogowac pacjenta")
     return render(request,'loginPatient.html')
@@ -338,6 +343,7 @@ def report(request):
 
     return render(request, 'report.html', {'firsts':firsts, 'seconds':seconds})
 
+
 def registerPatient(request):
     if request.method == 'POST':
         mail = request.POST['login']
@@ -353,7 +359,6 @@ def registerPatient(request):
             plec="kobieta"
         if sex == 'men':
             plec = "mezczyzna"
-
         patient = Pacjent.objects.create(haslo=password, login=mail, imie=name, nazwisko=surname, adres=address, pesel=peselP, plec=plec, data_ur=date_birth)
         print(patient)
         patient.save()
@@ -424,8 +429,6 @@ def doctor(request):
 
     return render(request,"doctor.html", {'pac':pac})
 
-
-
 def diagnose(request):
     print("test")
     print(request.GET['id'])
@@ -437,9 +440,18 @@ def diagnose(request):
     print(patient1)
     return render(request, 'diagnose.html', {"pac": patient1})
 
-
 def Udar_mozgu(request):
-    # pacjent = (request.GET["pacjent"])
+    patient_name = (request.GET["id"]).split("-")[0]
+    patient_surname = (request.GET["id"]).split("-")[1]
+    print(patient_name)
+    print(patient_surname)
+    patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
+    print(patient1)
+    if request.method == 'POST':
+        nazwa_pobrana = request.POST['Badania Laboratoryjne']
+        print(nazwa_pobrana)
+        patient1.update(nazwa_badania=nazwa_pobrana)
+        print(patient1)
     teksts = []
     teksts.append("Dla udaru mózgu zaleca się w pierwszej kolejności wykonanie badań:")
     teksts.append("-Rezonans magnetyczny głowy,")
@@ -454,10 +466,20 @@ def Udar_mozgu(request):
     teksts.append("-Echokardiografię,")
     teksts.append("-Badania krwi")
     teksts.append("")
-    return render(request, 'Udar_mozgu.html', {"teksts": teksts})
+    return render(request, 'Udar_mozgu.html', {"teksts": teksts, "pac": patient1})
 
 def Stwardnienie_rozsiane(request):
-    # pacjent = (request.GET["pacjent"])
+    patient_name = (request.GET["id"]).split("-")[0]
+    patient_surname = (request.GET["id"]).split("-")[1]
+    print(patient_name)
+    print(patient_surname)
+    patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
+    print(patient1)
+    if request.method == 'POST':
+        nazwa_pobrana = request.POST['Badania Laboratoryjne']
+        print(nazwa_pobrana)
+        patient1.update(nazwa_badania=nazwa_pobrana)
+        print(patient1)
     teksts = []
     teksts.append("Dla stwardnienia rozsianego zaleca się w pierwszej kolejności wykonanie badań:")
     teksts.append("-Rezonans magnetyczny głowy,")
@@ -470,7 +492,17 @@ def Stwardnienie_rozsiane(request):
     return render(request, 'Stwardnienie_rozsiane.html', {"teksts": teksts})
 
 def Padaczka(request):
-    # pacjent = (request.GET["pacjent"])
+    patient_name = (request.GET["id"]).split("-")[0]
+    patient_surname = (request.GET["id"]).split("-")[1]
+    print(patient_name)
+    print(patient_surname)
+    patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
+    print(patient1)
+    if request.method == 'POST':
+        nazwa_pobrana = request.POST['Badania Laboratoryjne']
+        print(nazwa_pobrana)
+        patient1.update(nazwa_badania=nazwa_pobrana)
+        print(patient1)
     teksts = []
     teksts.append("Dla podejrzenia padaczki zaleca się w pierwszej kolejności wykonanie badań:")
     teksts.append("-EEG,")
@@ -485,7 +517,17 @@ def Padaczka(request):
     return render(request, 'Padaczka.html', {"teksts": teksts})
 
 def Choroba_Parkinsona(request):
-    # pacjent = (request.GET["pacjent"])
+    patient_name = (request.GET["id"]).split("-")[0]
+    patient_surname = (request.GET["id"]).split("-")[1]
+    print(patient_name)
+    print(patient_surname)
+    patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
+    print(patient1)
+    if request.method == 'POST':
+        nazwa_pobrana = request.POST['Badania Laboratoryjne']
+        print(nazwa_pobrana)
+        patient1.update(nazwa_badania=nazwa_pobrana)
+        print(patient1)
     teksts = []
     teksts.append("Do badania choroby Parkinsona należy wykonać badania behawioralne oceniające, czy osoba spełnia charakterystyczne cechy dla tej choroby, takie jak:")
     teksts.append("-Drżenie rąk,")
@@ -499,7 +541,17 @@ def Choroba_Parkinsona(request):
     return render(request, 'Choroba_Parkinsona.html', {"teksts": teksts})
 
 def Choroba_Alzheimera(request):
-    # pacjent = (request.GET["pacjent"])
+    patient_name = (request.GET["id"]).split("-")[0]
+    patient_surname = (request.GET["id"]).split("-")[1]
+    print(patient_name)
+    print(patient_surname)
+    patient1 = Pacjent.objects.all().filter(imie=patient_name).filter(nazwisko=patient_surname)
+    print(patient1)
+    if request.method == 'POST':
+        nazwa_pobrana = request.POST['Badania Laboratoryjne']
+        print(nazwa_pobrana)
+        patient1.update(nazwa_badania=nazwa_pobrana)
+        print(patient1)
     teksts = []
     teksts.append("Do badania choroby Alzheimera zaleca się w pierwszej kolejności wykonanie badań:")
     teksts.append("-Badania laboratoryjne do rozpoznania schorzeń ogólnoustrojowych,")
