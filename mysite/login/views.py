@@ -31,12 +31,12 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
 
-import winreg
+# import winreg
 sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
 downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
 downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
-with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
-    location = winreg.QueryValueEx(key, downloads_guid)[0]
+# with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
+#     location = winreg.QueryValueEx(key, downloads_guid)[0]
 
 def index(request):
     return render(request,"index.html")
@@ -423,14 +423,15 @@ def doctor(request):
     pac = Pacjent.objects.all()
 
     return render(request,"doctor.html", {'pac':pac})
-   
-   
+
+
 
 def diagnose(request):
     return render(request, 'diagnose.html')
 
 
 def Udar_mozgu(request):
+    # pacjent = (request.GET["pacjent"])
     teksts = []
     teksts.append("Dla udaru mózgu zaleca się w pierwszej kolejności wykonanie badań:")
     teksts.append("-Rezonans magnetyczny głowy,")
@@ -446,6 +447,58 @@ def Udar_mozgu(request):
     teksts.append("-Badania krwi")
     teksts.append("")
     return render(request, 'Udar_mozgu.html', {"teksts": teksts})
+
+def Stwardnienie_rozsiane(request):
+    # pacjent = (request.GET["pacjent"])
+    teksts = []
+    teksts.append("Dla stwardnienia rozsianego zaleca się w pierwszej kolejności wykonanie badań:")
+    teksts.append("-Rezonans magnetyczny głowy,")
+    teksts.append("-Rezonans magnetyczny rdzenia kręgowego,")
+    teksts.append("Jeśli wykryto obszary demielinizacji to badanie jednoznacznie wskazuje na chorobę")
+    teksts.append("Jeśli wyniki są niejednoznaczne to zalecia się badania:")
+    teksts.append("-Badanie płynu mózgowo-rdzeniowego")
+    teksts.append("-Badanie potencjałów wywołanych")
+    teksts.append("")
+    return render(request, 'Stwardnienie_rozsiane.html', {"teksts": teksts})
+
+def Padaczka(request):
+    # pacjent = (request.GET["pacjent"])
+    teksts = []
+    teksts.append("Dla podejrzenia padaczki zaleca się w pierwszej kolejności wykonanie badań:")
+    teksts.append("-EEG,")
+    teksts.append("-Jądrowy rezonans magnetyczny głowy,")
+    teksts.append("-Tomografia komputerowa,")
+    teksts.append("-Badania krwi")
+    teksts.append("")
+    teksts.append("Badania SPECT, fMRI, MEG, PET oraz EEG pozwalają na uwidocznienie ognisk padaczkowych")
+    teksts.append("Badania tomografii or MRI pozwalają na wykrycie obecności guzów, torbieli, krwiaków w obrębie mózgowia")
+    teksts.append("W celu wykrycia biomarkerów biochemicznych lub psychologicznych wykonuje się konsultacje psychologiczne oraz badania laboratoryjne")
+    teksts.append("")
+    return render(request, 'Padaczka.html', {"teksts": teksts})
+
+def Choroba_Parkinsona(request):
+    # pacjent = (request.GET["pacjent"])
+    teksts = []
+    teksts.append("Do badania choroby Parkinsona należy wykonać badania behawioralne oceniające, czy osoba spełnia charakterystyczne cechy dla tej choroby, takie jak:")
+    teksts.append("-Drżenie rąk,")
+    teksts.append("-Wolne ruchy twarzą, ustami i ciałem,")
+    teksts.append("-Niestabilna postawa i sztywność ciała")
+    teksts.append("Jako dodatkową ocenę stosuje się badania obrazowe:")
+    teksts.append("-Rezonans magnetyczny głowy (MRI),")
+    teksts.append("-Tomografię emisyjną pojedynczych fotonów (SPECT),")
+    teksts.append("-Tomografię Komputerową (TK)")
+    teksts.append("")
+    return render(request, 'Choroba_Parkinsona.html', {"teksts": teksts})
+
+def Choroba_Alzheimera(request):
+    # pacjent = (request.GET["pacjent"])
+    teksts = []
+    teksts.append("Do badania choroby Alzheimera zaleca się w pierwszej kolejności wykonanie badań:")
+    teksts.append("-Badania laboratoryjne do rozpoznania schorzeń ogólnoustrojowych,")
+    teksts.append("-Badania obrazowe, takie jak rezonans magnetyczny i tomografia komputerowa do wykrycia zmian ogniskowych mózgu, wpływających na otępienie,")
+    teksts.append("-Konsultacja psychiatryczna do wykonania szczegółowego wywiadu i postawieniu diagnozy")
+    teksts.append("")
+    return render(request, 'Choroba_Alzheimera.html', {"teksts": teksts})
 
 def DiagnoseSiteNew(request):
     podejrzenie = (request.GET["report"])
@@ -490,13 +543,13 @@ def DiagnoseSiteNew(request):
         return render(request, 'DiagnoseSiteNew.html', {"teksts":teksts})
     if (podejrzenie == 'Choroba Parkinsona'):
         teksts.append("Do badania choroby Parkinsona należy wykonać badania behawioralne oceniające, czy osoba spełnia charakterystyczne cechy dla tej choroby, takie jak:")
-        teksts.append("-Drżenie rąk")
+        teksts.append("-Drżenie rąk,")
         teksts.append("-Wolne ruchy twarzą, ustami i ciałem")
         teksts.append("-Niestabilna postawa i sztywność ciała")
         teksts.append("Jako dodatkową ocenę stosuje się badania obrazowe:")
         teksts.append("-Rezonans magnetyczny głowy (MRI)")
         teksts.append("-Tomografię emisyjną pojedynczych fotonów (SPECT)")
-        teksts.append("Tomografię Komputerową (TK)")
+        teksts.append("-Tomografię Komputerową (TK)")
         teksts.append("")
         return render(request, 'DiagnoseSiteNew.html', {"teksts":teksts})
     if (podejrzenie == 'Choroba Alzheimera'):

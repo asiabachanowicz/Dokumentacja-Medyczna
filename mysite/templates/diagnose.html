@@ -20,7 +20,7 @@
      </select>
 </div>
 
-  <center><p class="submit"><input type="submit" id="procedura" name="procedura" value="Zaproponuj procedurę medyczną" onClick="newsite()">   </p></center>
+  <center><p class="submit"><input type="button" id="procedura" name="procedura" value="Zaproponuj procedurę medyczną" onClick="newsite()">   </p></center>
 
 <script type="text/javascript">
 
@@ -31,19 +31,26 @@
     var text = option.text;
     var value = option.value;
     console.log(value);
-    location.href = "http://localhost:8000/" + value;
+    if (value=='Udar_mozgu') {
+        console.log("udar");
+        window.location.href = "http://localhost:8000/Udar_mozgu/";
+    }
+    else if (value=='Padaczka') {
+        window.location.href = "http://localhost:8000/Padaczka/";
+    }
+    else if (value=='Choroba_Parkinsona') {
+        window.location.href = "http://localhost:8000/Choroba_Parkinsona/";
+    }
+    else if (value=='Choroba_Alzheimera') {
+        window.location.href = "http://localhost:8000/Choroba_Alzheimera/";
+    }
+    else if (value=='Stwardnienie_rozsiane') {
+        console.log("udar");
+        window.location.href = "http://localhost:8000/Stwardnienie_rozsiane/";
+    }
+<!--    location.href = "http://localhost:8000/" + value;-->
     console.log(location.href);
     }
-
-
-<!--    document.getElementById("procedura").onclick = function () {-->
-<!--    var sel = document.getElementById("Choroba");-->
-<!--    var option = sel.options[sel.selectedIndex];-->
-<!--    //assuming that there is always a selection-->
-<!--    var text = option.text;-->
-<!--    var value = option.value;-->
-<!--    console.log(text, value);-->
-<!--    location.href = "http://localhost:8000/DiagnoseSiteNew/?report=" + text;-->
 
 
 </script>

@@ -17,7 +17,10 @@
     PESEL: {{ p.pesel }}
 {% endfor %}
 </h1>
+
     <p class="submit" style="display: inline-block;"><input type="submit" id="patient" name="addDoc" value="Dodaj dokument" onClick="addDoc()"></p></center></div>
+<center><p class="submit" style="display: inline-block;"><input type="submit" id="diagnose" name="diagnose" value="Planuj leczenie" onClick="moveToDiagnose()"></p></center></div>
+
 <div class="myDiv" id="div1">
 <table>
     <th>Dokumenty pacjenta</th>
@@ -51,6 +54,7 @@
     </tr>
 </table>
 </div>
+
 </body>
 </html>
 <script>
@@ -63,4 +67,7 @@
     console.log(p);
     location.href = "http://localhost:8000/addDocument/?id=" + id;
     }
+    document.getElementById("diagnose").onclick = function () {
+    location.href = "http://localhost:8000/diagnose/";
+  }
 </script>

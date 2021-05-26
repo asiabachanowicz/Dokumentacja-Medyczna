@@ -16,11 +16,16 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.urls import path
-from login.views import addDocument, Udar_mozgu, DiagnoseSiteNew, diagnose, loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite, badaniaMri, badaniaLab, diagnozy, report
+from login.views import addDocument, Udar_mozgu, Stwardnienie_rozsiane,Padaczka,Choroba_Parkinsona,Choroba_Alzheimera, DiagnoseSiteNew, diagnose, loginPatient, loginDoctor, registerPatient, registerDoctor, patient, index, doctor, patientSite, badaniaMri, badaniaLab, diagnozy, report
 
 urlpatterns = [
     url('DiagnoseSiteNew/', DiagnoseSiteNew, name="DiagnoseSiteNew"),
     url('Udar_mozgu/', Udar_mozgu, name="Udar_mozgu"),
+    url('Padaczka/', Padaczka, name="Padaczka"),
+    url('Choroba_Parkinsona/', Choroba_Parkinsona, name="Choroba_Parkinsona"),
+    url('Choroba_Alzheimera/', Choroba_Alzheimera, name="Choroba_Alzheimera"),
+    url('Stwardnienie_rozsiane/', Stwardnienie_rozsiane, name="Stwardnienie_rozsiane"),
+
     #url('DiagnoseSite/', DiagnoseSite, name="DiagnoseSite"),
     url('loginPatient/', loginPatient, name="loginPatient"),
     url('loginDoctor/', loginDoctor, name="loginDoctor"),
